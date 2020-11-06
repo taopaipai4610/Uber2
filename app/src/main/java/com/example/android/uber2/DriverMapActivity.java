@@ -120,6 +120,8 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
     protected void onStop() {
         super.onStop();
 
+        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("driversAvailable");
 
