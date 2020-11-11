@@ -57,7 +57,7 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_map);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -157,7 +157,7 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
 
     private Marker mDriverMarker;
     private void getDriverLocation(){
-        DatabaseReference driverLocationRef = FirebaseDatabase.getInstance().getReference().child("driversWorking").child("driverFoundID").child("l");
+        DatabaseReference driverLocationRef = FirebaseDatabase.getInstance().getReference().child("driversWorking").child(driverFoundID).child("l");
         driverLocationRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -176,6 +176,18 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
                     if (mDriverMarker != null){
                         mDriverMarker.remove();
                     }
+                    Location loc1 = new Location("");
+                    loc1.setLatitude(pickupLocation.latitude);
+                    loc1.setLongitude(pickupLocation.longitude);
+
+                    Location loc2 = new Location("");
+                    loc2.setLatitude(driverLatLng.latitude);
+                    loc2.setLongitude(driverLatLng.longitude);
+
+                    float distance = loc1.distanceTo(loc2);
+
+                    mRequest.setText("Driver Found" +  String.valueOf(distance));
+
                     mDriverMarker = mMap.addMarker(new MarkerOptions().position(driverLatLng).title("your driver"));
                 }
             }
