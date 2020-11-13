@@ -24,6 +24,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -123,7 +124,7 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
                         locationLng = Double.parseDouble(map.get(1).toString());
                     }
                     LatLng driverLatLng = new LatLng(locationLat, locationLng);
-                    pickupMarker = mMap.addMarker(new MarkerOptions().position(driverLatLng).title("pickup location"));
+                    pickupMarker = mMap.addMarker(new MarkerOptions().position(driverLatLng).title("pickup location").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_pickup_foreground)));
                 }
             }
 
@@ -165,7 +166,7 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-           mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+           mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
            DatabaseReference refAvailable = FirebaseDatabase.getInstance().getReference("driversAvailable");
