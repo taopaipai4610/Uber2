@@ -13,6 +13,9 @@ import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.geofire.GeoFire;
@@ -38,6 +41,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -49,7 +54,7 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
     LocationRequest mLocationRequest;
     private SupportMapFragment mapFragment;
 
-    private Button mLogout, mRequest;
+    private Button mLogout, mRequest, mSettings;
 
     private LatLng pickupLocation;
 
@@ -71,8 +76,11 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
             mapFragment.getMapAsync(this);
         }
 
+
         mLogout = (Button) findViewById(R.id.logout);
         mRequest = (Button) findViewById(R.id.request);
+        mSettings = (Button) findViewById(R.id.settings);
+
         mLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,6 +135,15 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
 
                     getClosestDriver();
                 }
+            }
+        });
+
+        mSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CustomerMapActivity.this, CustomerSettingsActivity.class);
+                startActivity(intent);
+                return;
             }
         });
     }
