@@ -8,6 +8,12 @@
     android:padding="20sp"
     tools:context=".CustomerSettingsActivity">
 
+    <ImageView
+        android:layout_width="100sp"
+        android:layout_height="100sp"
+        android:id="@+id/profileImage"
+        android:src="@mipmap/ic_default_user"
+        android:layout_marginBottom="20sp"/>
     <EditText
         android:id="@+id/name"
         android:layout_width="match_parent"
